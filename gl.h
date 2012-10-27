@@ -8,6 +8,6 @@
 	#include "loadObject.h"										// Contiene la escructura del objeto (strObject) y ademas
 																// se encarga de cargar dicho objecto del archivo
 
-	#include "drawObject.h"										// Tiene las funciones encargadas de dibujar primiticas
+	#include "drawObject.h"										// Tiene las funciones encargadas de dibujar primitivas
 																// lineas, puntos, poligonos
 #endif

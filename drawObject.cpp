@@ -1,8 +1,10 @@
 #include "drawObject.h"
 
-void drawPoints(strObject *object)
+void drawPoints(strObject *object, float sz)
 {
+	glPointSize(sz);
 	glColor3f(1.0f, 1.0f, 1.0f);
+
 	glBegin(GL_POINTS);
 	for(int i = 0; i < object->nVertices; i++)
 	{
@@ -14,15 +16,14 @@ void drawPoints(strObject *object)
 	}
 
 	glEnd();
-	glFlush();
 }
 
 void drawLines(strObject *object)
 {
 	glColor3f(1.0f, 1.0f, 1.0f);
-	glBegin(GL_LINES);
 	for(int i = 0; i < object->nCaras; i++)
 	{
+		glBegin(GL_LINE_LOOP);
 			for(int j = 1; j <= object->uCaras[i][0]; j++)
 			{
 				GLfloat x = (GLfloat) object->pVertices[object->uCaras[i][j]][0];
@@ -31,9 +32,8 @@ void drawLines(strObject *object)
 
 				glVertex3f(x, y, z);
 			}
+		glEnd();
 	}
-	glEnd();
-	glFlush();
 }
 
 void drawAxis(int sz)
@@ -45,7 +45,7 @@ void drawAxis(int sz)
 			glVertex3f(sz * 1.0f, 0.0f, 0.0f);
 	glEnd();
 
-	// Eje Y -Verde
+	// Eje Y - Verde
 	glColor3f(0.0f, 1.0f, 0.0f);
 	glBegin(GL_LINES);
 			glVertex3f(0.0f, 0.0f, 0.0f);
@@ -59,5 +59,4 @@ void drawAxis(int sz)
 			glVertex3f(0.0f, 0.0f, sz * 1.0f);
 	glEnd();
 
-	glFlush();
 }

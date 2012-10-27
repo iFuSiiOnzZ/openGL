@@ -13,7 +13,7 @@ void reshape(int width, int height);						// Tamaño viewport
 int bDrawAxis = 1;											// Nos dice si dibujamos o no los ejes (A)
 strObject cube = {0, 0, NULL, NULL};						// El cubo a mostrar
 
-Vertex3D cameraPosition = {0.0f, 1.0f, 5.0f};				// Posicion inicial de la camera
+Vertex3D cameraPosition = {3.0f, 3.0f, 5.0f};				// Posicion inicial de la camera
 Vertex3D lookAtPosition = {0.0f, 0.0f, 0.0f};				// Posicion inicial de done miramos		
 
 
@@ -26,7 +26,7 @@ int main(int argc, char **argv)
 	glutInit(&argc, argv);
 
 	// 2) glutInitDisplayMode
-	glutInitDisplayMode(GLUT_RGB);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 
 	// 3) glutInitWindowPosition
 	glutInitWindowPosition(0, 0);
@@ -84,7 +84,6 @@ void representarEscena(void)
 {
 	// Procés de dibuixat de l’escena
 	// AQUI VA LA VOSTRA IMPLEMENTACIÓ
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT);										// Borrar la pantalla
 
 	gluLookAt(cameraPosition.x, cameraPosition.y, cameraPosition.z,		// Posicion de la camera
@@ -93,23 +92,27 @@ void representarEscena(void)
 
 	if(bDrawAxis == 1){ drawAxis(2);}									// Si se dibujan o no los ejes
 	drawLines(&cube);													// Dibujamos el cubo
+
+	glFlush();
+	glutSwapBuffers();													// Forzar el dibujo
 }
 
 void processaTecles(unsigned char tecla, int x, int y)
 {
 	if(tecla == 27){ exit(0); } // Si l'usuari polsa la tecla ESC sortim
-	if(tecla == 97){ bDrawAxis = (bDrawAxis == 1)? 0 : 1; }
+	if(tecla == 97){ bDrawAxis = (bDrawAxis == 1)? 0 : 1; glutPostRedisplay();}
 }
 
 void reshape(int width, int height)
 {
 	glViewport(0, 0, width, height);							// Porcion en la cual se puede dibujar
 
-	glMatrixMode(GL_PROJECTION);								// Modo proyección
+	glMatrixMode(GL_PROJECTION);								// Modo proyección (Mundo)
 	glLoadIdentity();											// Cargamos la matriz identidad
 
 	if(0){ glOrtho(-5.0f, 5.0f, -5.0f, 5.0f, -5.0f, 5.0f); }	// Proyección ortográfica
 	else{ gluPerspective(60.0f, width/height, 1.0f, 20.0f); }
 
-	glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_MODELVIEW);									// Modo pryeccion (Objeto)
+	glLoadIdentity();											// Cargamos la matriz identida
 }
