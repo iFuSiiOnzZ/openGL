@@ -58,5 +58,4 @@ void drawAxis(int sz)
 			glVertex3f(0.0f, 0.0f, 0.0f);
 			glVertex3f(0.0f, 0.0f, sz * 1.0f);
 	glEnd();
-
 }

@@ -8,6 +8,13 @@ void processaTecles(unsigned char tecla, int x, int y);		// Processat dels event
 void finalitzar(void);										// Espai per a l’alliberament de memòria
 void reshape(int width, int height);						// Tamaño viewport
 
+// Defines
+#define kExitGl		27										// ESC - salir de openGL
+#define kDrawAxis	'a'										// a   - dibujar o no ejes
+#define kProyect	'p'										// p   - proyeccion ortografica o perspectica
+#define kDrawPns	'q'										// q   - dibujar puntos
+#define kDrawLns	'w'										// w   - dibujar lineas
+#define KDrawPls	'e'										// e   - dibujar poligonos
 
 // Variables globales
 int bDrawAxis = 1;											// Nos dice si dibujamos o no los ejes (A)
@@ -93,14 +100,13 @@ void representarEscena(void)
 	if(bDrawAxis == 1){ drawAxis(2);}									// Si se dibujan o no los ejes
 	drawLines(&cube);													// Dibujamos el cubo
 
-	glFlush();
 	glutSwapBuffers();													// Forzar el dibujo
 }
 
 void processaTecles(unsigned char tecla, int x, int y)
 {
-	if(tecla == 27){ exit(0); } // Si l'usuari polsa la tecla ESC sortim
-	if(tecla == 97){ bDrawAxis = (bDrawAxis == 1)? 0 : 1; glutPostRedisplay();}
+	if(tecla == kExitGl){ exit(0); } // Si l'usuari polsa la tecla ESC sortim
+	if(tecla == kDrawAxis){ bDrawAxis = (bDrawAxis == 1)? 0 : 1; glLoadIdentity(); glutPostRedisplay();}
 }
 
 void reshape(int width, int height)
