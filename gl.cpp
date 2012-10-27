@@ -6,9 +6,6 @@ void inicialitzar(void); 									// Configuració bàsica del pipeline d’Open
 void representarEscena();									// Procés de dibuixat de l’escena
 void processaTecles(unsigned char tecla, int x, int y);		// Processat dels events de teclat
 void finalitzar(void);										// Espai per a l’alliberament de memòria
-
-void drawAxis(int sz);										// Dibuja los ejes
-void drawCube(strObject *cube);								// Dibuja un cubo
 void reshape(int width, int height);						// Tamaño viewport
 
 
