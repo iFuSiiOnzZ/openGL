@@ -36,6 +36,25 @@ void drawLines(strObject *object)
 	}
 }
 
+void drawPlans(strObject *object)
+{
+	glColor3f(1.0f, 1.0f, 1.0f);
+	for(int i = 0; i < object->nCaras; i++)
+	{
+		glBegin(GL_QUADS);
+			for(int j = 1; j <= object->uCaras[i][0]; j++)
+			{
+				GLfloat x = (GLfloat) object->pVertices[object->uCaras[i][j]][0];
+				GLfloat y = (GLfloat) object->pVertices[object->uCaras[i][j]][1];
+				GLfloat z = (GLfloat) object->pVertices[object->uCaras[i][j]][2];
+
+				glVertex3f(x, y, z);
+			}
+		glEnd();
+	}
+}
+
+
 void drawAxis(int sz)
 {
 	// Eje X - Rojo
