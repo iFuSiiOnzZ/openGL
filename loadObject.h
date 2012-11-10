@@ -2,8 +2,11 @@
 	#define _LOADOBJECT_H_
 
 	#include <GL/glut.h>
-	#include <stdio.h>		// FILE *
-	#include <string.h>		// bzero(*, size_t)
+	#include <stdio.h>
+	
+	#include <cstring>
+	#include <string>
+	#include <map>
 
 	typedef struct Vertex3D
 	{
@@ -28,6 +31,28 @@
 								// una cara y los puntos que la forma
 	}strObject;
 
-	int loadObject(strObject *object, char *fName);
-	void unloadObject(strObject *object);
+	class cLoadObject
+	{
+		private:
+			cLoadObject						();
+			~cLoadObject					();
+
+			strObject selectedObject;
+			static cLoadObject *hInstance;
+			std::map<std::string, strObject> cloObjects;
+
+		public:
+			static cLoadObject *getInstance	();
+
+			bool loadObject 				(std::string oName, std::string fName);
+			bool unloadObject 				(std::string oName);
+
+			void setSelectedObject			(std::string oName);
+
+			strObject getObject				(void);
+			strObject getObject				(std::string oName);
+
+			void release					(void);
+
+	};
 #endif

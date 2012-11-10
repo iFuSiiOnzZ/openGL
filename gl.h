@@ -10,4 +10,7 @@
 
 	#include "drawObject.h"										// Tiene las funciones encargadas de dibujar primitivas
 																// lineas, puntos, poligonos
+
+	#include "motion.h"											// Clase para controlas las teclas precionadas
+																// y la posicion del mouse
 #endif
