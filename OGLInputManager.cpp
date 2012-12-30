@@ -32,10 +32,10 @@ void OGLInputManager::addKey(std::string keyName, unsigned char key)
 	this->mKeyboardInput->addKey(keyName, key);
 }
 
-void OGLInputManager::addKey(std::string keyName, unsigned int key)
+/*void OGLInputManager::addKey(std::string keyName, unsigned int key)
 {
 	this->mKeyboardInput->addKey(keyName, key);
-}
+}*/
 
 void OGLInputManager::updateKey(unsigned char key)
 {
@@ -59,7 +59,7 @@ void OGLInputManager::updateMouse(int x, int y, float dt)
 
 void OGLInputManager::updateMouse(int button, int state, int x, int y, float dt)
 {
-	this->updateMouse(button, state, x, y, dt);
+	this->mMouseInput->update(button, state, x, y, dt);
 }
 
 float OGLInputManager::getAngle(void)

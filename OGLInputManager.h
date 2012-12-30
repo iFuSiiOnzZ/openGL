@@ -17,7 +17,7 @@ class OGLInputManager
 		static OGLInputManager	*getInstance	(int, int);
 
 		void	addKey				(std::string, unsigned char);
-		void	addKey				(std::string, unsigned int);
+		//void	addKey				(std::string, unsigned int);
 
 		void	updateKey			(unsigned char);
 		void	updateKey			(unsigned int);

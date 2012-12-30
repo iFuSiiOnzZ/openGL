@@ -22,6 +22,9 @@ OGLObject::~OGLObject()
 {
 	this->v_Caras.clear();
 	this->v_Vertices.clear();
+
+	this->vertexArray.clear();
+	this->indexArray.clear();
 }
 
 int OGLObject::getCSize(void)
@@ -210,14 +213,18 @@ void OGLObject::draw(void)
 
 void OGLObject::genVertexArray(void)
 {
+
+	for(vertexVector::iterator it1 = this->v_Vertices.begin(); it1 != this->v_Vertices.end(); it1++)
+	{
+		this->vertexArray.push_back((*it1).vertexPosition.x);
+		this->vertexArray.push_back((*it1).vertexPosition.y);
+		this->vertexArray.push_back((*it1).vertexPosition.z);
+	}
+
 	for(faceVector::iterator it1 = this->v_Caras.begin(); it1 != this->v_Caras.end(); it1++)
 	{
 		for(intVector::iterator it2 = it1->vCara.begin(); it2 != it1->vCara.end(); it2++)
 		{
-			this->vertexArray.push_back(this->v_Vertices[(*it2)].vertexPosition.x);
-			this->vertexArray.push_back(this->v_Vertices[(*it2)].vertexPosition.y);
-			this->vertexArray.push_back(this->v_Vertices[(*it2)].vertexPosition.z);
-
 			this->indexArray.push_back((*it2));
 		}
 	}
@@ -252,20 +259,28 @@ void OGLObject::DrawAxis(void)
 void OGLObject::DrawLines(void)
 {
 	glColor3f(1.0f, 1.0f, 1.0f);
-
 	glEnableClientState(GL_VERTEX_ARRAY);
 		glVertexPointer(3, GL_FLOAT, 0, &this->vertexArray[0]);
-		glDrawArrays(GL_LINE_LOOP, 0, this->indexArray.size());
-		//glDrawElements(GL_LINE_LOOP, this->indexArray.size(), GL_UNSIGNED_INT, &this->indexArray[0]);
+		glDrawElements(GL_LINE_LOOP, this->indexArray.size(), GL_UNSIGNED_INT, &this->indexArray[0]);
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void OGLObject::DrawPoints(void)
 {
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glEnableClientState(GL_VERTEX_ARRAY);
+		glVertexPointer(3, GL_FLOAT, 0, &this->vertexArray[0]);
+		glDrawElements(GL_POINTS, this->indexArray.size(), GL_UNSIGNED_INT, &this->indexArray[0]);
+	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void OGLObject::DrawPolygons(void)
 {
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glEnableClientState(GL_VERTEX_ARRAY);
+		glVertexPointer(3, GL_FLOAT, 0, &this->vertexArray[0]);
+		glDrawElements(GL_TRIANGLES, this->indexArray.size(), GL_UNSIGNED_INT, &this->indexArray[0]);
+	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void OGLObject::DrawNormals(void)
